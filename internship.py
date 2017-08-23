@@ -11,8 +11,7 @@ from functools import wraps
 
 app = Flask(__name__)
 
-CONNECTION_STRING = os.environ ['CONNECTION_STRING']
-connection_string = "%s" % (CONNECTION_STRING)
+connection_string = os.environ['DATABASE_URL']
 
 def check_auth(username, password):
     """This function is called to check if a username /
