@@ -1,0 +1,92 @@
+
+{% extends "base.html" %}
+
+{% block title %}Home page{% endblock %}
+
+{% block content %}
+
+
+<h1>BOX</h1>
+<center><img src="http://images.clipartpanda.com/box-clipart-3D-Isometric-Cardboard-Box.svg" width = 70px height = 70px align = middle></center>
+<h2>The Smart Room</h2>
+
+<hr>
+<p> My name is {{ my_name }}
+
+</p>
+<hr>
+<p>
+    <button id="button1" onclick="myFunction()">Turn OFF</button>
+</p>
+
+<script
+	 src="http://code.jquery.com/jquery-3.2.1.min.js"
+	 integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	 crossorigin="anonymous">
+</script>
+<script>
+function myFunction(){
+	var myButton = document.getElementById("button1");
+	var statefinal = document.getElementById("state1");
+	if(myButton.innerText == "Turn ON") {
+		(myButton.innerText = "Turn OFF")
+    $.post("/led",{arg: "on" });
+		alert("FAN TURNING ON")
+	} else {
+		alert("FAN TURNING OFF")
+    $.post("/led",{arg: "off" });
+		myButton.innerText = "Turn ON"
+	}
+}
+
+
+  function refresh() { 
+    var myButton = document.getElementById("button1");
+    $.getJSON("https://api.particle.io/v1/devices/1d001f001047343438323536/ledstate?access_token=8323eaefd7e63796ee8be00eef4be49e4a17e367", 
+     function (data) {
+      var currentState = data.result;
+      var currentStateElement = document.getElementById('state1')
+      if (currentState === 1) {
+        currentStateElement.innerText = "ON"
+        myButton.innerText = "Turn OFF";
+      } else {
+        currentStateElement.innerText = "OFF"
+        myButton.innerText = "Turn ON";
+      }
+   })
+}
+
+$(document).ready(refresh)
+
+</script>
+
+<p> Fan : <span id="state1">ON</span></p>
+<hr>
+<p>Current air temp: <span>{{ temperature }}&deg;C</span></p>
+<hr>
+<table>
+  <thead>
+  <th>ID</th>
+    <th>Date</th>
+    <th>Temperature</th>
+  </thead>
+  <tbody>
+{% for record in records %}
+   <tr>
+       <td>{{ loop.index }}</td>
+       <td>{{ record.reading_date }}</td>
+       <td>{{ record.temperature }}</td>
+   </tr>
+{% else %}
+   <tr>
+       <td colspan="2">There is no data</td>
+   </tr>
+{% endfor %}
+
+</table>
+
+<p> Highest Temperature: {{ highest.temperature}}</p>
+
+<hr>
+<!-- this is a comment lol -->
+{% endblock %}

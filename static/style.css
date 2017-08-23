@@ -1,0 +1,34 @@
+body {
+	background-image: url("http://cdn.wallpapersafari.com/53/37/xi1Bru.png");
+}
+
+h1{
+	color: #ff6b59;
+	font-size: 50px;
+	font-family: courier;
+	text-align: center; 
+}
+h2{
+	color: white;
+	font-size: 30px;
+	font-family: courier;
+	text-align: center; 
+}
+p{
+	color: white;
+	font-size :20px;
+	font-family:helvetica
+}
+
+table{
+	color: white;
+	font-size :20px;
+	font-family: helvetica
+}
+span{
+	color: white;
+}
+
+p.one {
+	border-style: solid;
+}
