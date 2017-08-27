@@ -109,15 +109,16 @@ def handle():
     query = "INSERT INTO temperature (temperature, reading_date) values (%s,'%s')" % (temperature, current_date)
     cursor.execute(query)
 
-@app.template_filter('format_date')
-def reverse_filter(record_date):
-    return record_date.strftime('%Y-%m-%d %H:%M:%S')
-
     conn.commit()
     conn.close()
 
     return redirect("/")
-    query
+
+
+@app.template_filter('format_date')
+def reverse_filter(record_date):
+    return record_date.strftime('%Y-%m-%d %H:%M:%S')
+
 
 if __name__ == '__main__':
     app.run()
