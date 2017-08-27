@@ -102,14 +102,16 @@ def me():
 @app.route('/handle', methods=['POST'])
 def handle():
     temperature = request.form['temperature']
-    current_date = datetime.date.today().isoformat()
+    current_date = datetime.datetime.now()
     conn = psycopg2.connect(connection_string)
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
     query = "INSERT INTO temperature (temperature, reading_date) values (%s,'%s')" % (temperature, current_date)
     cursor.execute(query)
 
-
+@app.template_filter('format_date')
+def reverse_filter(record_date):
+    return record_date.strftime('%Y-%m-%d %H:%M:%S')
 
     conn.commit()
     conn.close()

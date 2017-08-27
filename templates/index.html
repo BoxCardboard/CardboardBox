@@ -74,7 +74,7 @@ $(document).ready(refresh)
 {% for record in records %}
    <tr>
        <td>{{ loop.index }}</td>
-       <td>{{ record.reading_date }}</td>
+       <td>{{ record.reading_date|format_date}}</td>
        <td>{{ record.temperature }}</td>
    </tr>
 {% else %}
