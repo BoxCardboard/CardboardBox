@@ -29,13 +29,15 @@ function myFunction(){
 	var myButton = document.getElementById("button1");
 	var statefinal = document.getElementById("state1");
 	if(myButton.innerText == "Turn ON") {
-		(myButton.innerText = "Turn OFF")
+		myButton.innerText = "Turn OFF";
+		statefinal.innerText = "ON";
     $.post("/led",{arg: "on" });
-		alert("FAN TURNING ON")
+		alert("LED TURNING ON")
 	} else {
-		alert("FAN TURNING OFF")
+		alert("LED TURNING OFF")
     $.post("/led",{arg: "off" });
-		myButton.innerText = "Turn ON"
+		myButton.innerText = "Turn ON";
+		statefinal.innerText = "OFF";
 	}
 }
 
@@ -60,9 +62,9 @@ $(document).ready(refresh)
 
 </script>
 
-<p> Fan : <span id="state1">ON</span></p>
+<p> LED : <span id="state1">ON</span></p>
 <hr>
-<p>Current air temp: <span>{{ temperature }}&deg;C</span></p>
+<p>Current air temp: <span>{{ records[0].temperature }}&deg;C</span></p>
 <hr>
 <table>
   <thead>
